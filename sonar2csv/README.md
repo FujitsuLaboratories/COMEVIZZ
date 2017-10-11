@@ -4,7 +4,16 @@
 
 # Installation
 
-Get `sonar2csv` binary from releases page.
+## Build sonar2csv
+
+You need [Go(>=1.8)](https://golang.org) and [Masterminds/glide: Package Management for Golang](https://github.com/Masterminds/glide).
+
+```
+glide install
+make
+```
+
+Get `sonar2csv` binary from `release/` directory.
 
 Write configuration about SonarQube to `config.toml`.
 

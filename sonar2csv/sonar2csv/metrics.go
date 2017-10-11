@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/FujitsuLaboratories/sonar2csv/util"
+	"github.com/FujitsuLaboratories/COMEVIZZ/sonar2csv/util"
 )
 
 // sonarResponse は Sonar WebAPI - /api/resource のレスポンスのモデル

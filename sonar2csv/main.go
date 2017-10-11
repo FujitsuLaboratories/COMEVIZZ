@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"flag"
-	"github.com/FujitsuLaboratories/sonar2csv/sonar2csv"
-	"github.com/FujitsuLaboratories/sonar2csv/util"
+	"github.com/FujitsuLaboratories/COMEVIZZ/sonar2csv/sonar2csv"
+	"github.com/FujitsuLaboratories/COMEVIZZ/sonar2csv/util"
 	"io/ioutil"
 	"log"
 	"time"

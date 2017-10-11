@@ -2,7 +2,7 @@ package sonar2csv
 
 import (
 	"fmt"
-	"github.com/FujitsuLaboratories/sonar2csv/util"
+	"github.com/FujitsuLaboratories/COMEVIZZ/sonar2csv/util"
 	"log"
 	"net/http"
 	"net/url"
