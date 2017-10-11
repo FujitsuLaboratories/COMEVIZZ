@@ -1,0 +1,7 @@
+graph LR
+    SONARQUBE(SonarQube) --> |metrics data| CSV>CSV]
+    CSV --> |metrics data| DASHBOARD(Dashboard)
+    subgraph DashboardApp
+        DASHBOARD --> |analyze| Z-SCORE[z-score]
+        DASHBOARD --> |analyze| STATISTICS[Statistics]
+    end

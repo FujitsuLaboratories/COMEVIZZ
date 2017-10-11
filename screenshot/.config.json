@@ -1,0 +1,9 @@
+{
+    "proxy": {
+        "server": "$PROXY_SERVER",
+        "auth": {
+            "username": "$PROXY_USERNAME",
+            "password": "$PROXY_PASSWORD"
+        }
+    }
+}

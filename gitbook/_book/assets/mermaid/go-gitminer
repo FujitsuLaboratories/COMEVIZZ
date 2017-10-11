@@ -1,0 +1,22 @@
+graph LR
+    subgraph SourceCodeRepositories
+        REPO1(Github Repo)
+        REPO2(Internal Repo)
+    end
+    REPO1 --> |source code| GITMINER-APP
+    REPO2 --> |source code| GITMINER-APP
+
+    subgraph go-gitminer
+        GITMINER-APP(Application) --> |source code| DOCKER(DockerContainer)
+        DOCKER --> |log| FLUENTD{fluentd}
+        GITMINER-APP --> |metrics data| FLUENTD
+        DOCKER --> |metrics data| GITMINER-APP
+    end
+    FLUENTD --> |log| ES((Elasticsearch))
+    ES  --> |log| KIBANA[Kibana]
+    FLUENTD --> |metrics data| DATABASE((Database))
+    DATABASE --> |metrics data| DASHBOARD-APP
+
+    subgraph dashboard
+        DASHBOARD-APP(Dashboard)
+    end

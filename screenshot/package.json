@@ -1,0 +1,12 @@
+{
+  "name": "comevizz-doc-sc",
+  "version": "0.0.1",
+  "description": "Get screenshot for comevizz-doc",
+  "main": "index.js",
+  "repository": "https://github.com/FujitsuLaboratories/comevizz-doc",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "puppeteer": "^0.11.0"
+  }
+}

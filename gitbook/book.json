@@ -1,0 +1,24 @@
+{
+	"title": "COMEVIZZ Document",
+	"language": "ja",
+	"structure": {
+		"readme": "INDEX.md"
+	},
+	"pdf": {
+		"fontSize": 14,
+		"paperSize": "a4"
+	},
+	"plugins": [
+		"katex",
+		"mermaid-gb3",
+		"-sharing"
+	],
+	"pluginsConfig": {
+		"mermaid-2": {
+			"theme": "forest"
+		}
+	},
+	"styles": {
+		"website": "assets/css/website.css"
+	}
+}
