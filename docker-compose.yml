@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  comevizz:
+    build: 
+      context: ./app
+      args:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+    ports:
+      - "3838:3838"
+    volumes:
+      - ./app:/usr/local/src

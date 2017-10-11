@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  rstudio:
+    build: 
+      context: ./dev
+      args:
+      - http_proxy=${http_proxy}
+      - https_proxy=${https_proxy}
+    ports:
+      - "8787:8787"
+    volumes:
+      - "./app:/home/rstudio"
