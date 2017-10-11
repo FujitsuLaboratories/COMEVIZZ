@@ -1,0 +1,5 @@
+package: go-sonar2csv
+import:
+- package: github.com/BurntSushi/toml
+  version: ^0.2.0
+- package: github.com/recursionpharma/go-csv-map

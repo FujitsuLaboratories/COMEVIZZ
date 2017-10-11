@@ -1,0 +1,2 @@
+github.com/BurntSushi/toml             "Do What The F*ck You Want To Public License"
+github.com/recursionpharma/go-csv-map  MIT License
