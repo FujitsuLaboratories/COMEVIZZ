@@ -7,7 +7,7 @@
         <title>Usage · COMEVIZZ Document</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -278,34 +278,84 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="usage-of-comevizz">Usage of comevizz</h1><h3 id="reading-csv-file-of-metrics-data">Reading csv file of metrics data</h3><p>Select metrics csv file from <strong>Browse...</strong> button.  
-Refer <a href="A-appendix.html#appendix_metrics_format">Appendix B. The Format of Metrics Data File</a> about the requirements of the csv file for metrics data.</p><p>When loading the metrics data file is completed, you can see the following screen.</p><p><img alt="Finish reading file" src="images/comevizz_read_data.png"></p><hr><h2 id="display-z-score">Display Z-Score</h2><p>You can see Z-Score Radar chart from <strong>Metrics Z-Score</strong> tab.  
-See <a href="A-appendix.html#z-score">Appendix C. How to calculate Z-Score</a> about Z-Score.</p><p>COMEVIZZ displays Z-Score Radar chart for target projects filtered by <a href="#filtering">Filtering population and target</a>.</p><p>For example, when you select <code>Apache</code> projects as population and <code>commons-*</code> projects as target projects, you can see the following screen.</p><p><img alt="Z-score" src="images/comevizz_zscore.png"></p><p>If you do not select any target projects, All Z-Score will be <code>0</code>.</p><hr><h3 id="select-metrics-types-for-z-score-radar-chart">Select metrics types for Z-Score Radar chart</h3><h4 id="select-the-set-of-metrics-types">Select the set of metrics types</h4><p>You can select the sets of metrics types from <strong>Select Metrics Sets</strong> on the right pane.</p><table>
+                                <h1 id="usage-of-comevizz">Usage of comevizz</h1>
+<h3 id="reading-csv-file-of-metrics-data">Reading csv file of metrics data</h3>
+<p>Select metrics csv file from <strong>Browse...</strong> button.<br>Refer <a href="A-appendix.html#appendix_metrics_format">Appendix B. The Format of Metrics Data File</a> about the requirements of the csv file for metrics data.</p>
+<p>When loading the metrics data file is completed, you can see the following screen.</p>
+<p><img src="images/comevizz_read_data.png" alt="Finish reading file"></p>
+<hr>
+<h2 id="display-z-score">Display Z-Score</h2>
+<p>You can see Z-Score Radar chart from <strong>Metrics Z-Score</strong> tab.<br>See <a href="A-appendix.html#z-score">Appendix C. How to calculate Z-Score</a> about Z-Score.</p>
+<p>COMEVIZZ displays Z-Score Radar chart for target projects filtered by <a href="#filtering">Filtering population and target</a>.</p>
+<p>For example, when you select <code>Apache</code> projects as population and <code>commons-*</code> projects as target projects, you can see the following screen.</p>
+<p><img src="images/comevizz_zscore.png" alt="Z-score"></p>
+<p>If you do not select any target projects, All Z-Score will be <code>0</code>.</p>
+<hr>
+<h3 id="select-metrics-types-for-z-score-radar-chart">Select metrics types for Z-Score Radar chart</h3>
+<h4 id="select-the-set-of-metrics-types">Select the set of metrics types</h4>
+<p>You can select the sets of metrics types from <strong>Select Metrics Sets</strong> on the right pane.</p>
+<table>
 <thead>
-<tr><th> Metrics Set Name </th>
-<th> Metrics types </th>
-</tr></thead><tbody>
-<tr><td style="text-align:left"> Issues </td>
-<td style="text-align:left"> bugs, code_smells, vulnerabilities </td>
-</tr><tr><td style="text-align:left"> Violations </td>
-<td style="text-align:left"> blocker_violations, critical_violations, info_violations, major_violations, minor_violations, violations </td>
-</tr><tr><td style="text-align:left"> Complexity </td>
-<td style="text-align:left"> class_complexity, complexity, function_complexity</td>
-</tr></tbody></table>
+<tr>
+<th style="text-align:left">Metrics Set Name</th>
+<th style="text-align:left">Metrics types</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Issues</td>
+<td style="text-align:left">bugs, code_smells, vulnerabilities</td>
+</tr>
+<tr>
+<td style="text-align:left">Violations</td>
+<td style="text-align:left">blocker_violations, critical_violations, info_violations, major_violations, minor_violations, violations</td>
+</tr>
+<tr>
+<td style="text-align:left">Complexity</td>
+<td style="text-align:left">class_complexity, complexity, function_complexity</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/comevizz_zscore_select_sets.png" alt="Z-score select metrics set"></p>
+<h4 id="select-metrics-by-yourself">Select metrics by yourself</h4>
+<p>You can select specific metrics from <strong>Select Metrics</strong> on the right pane.
+Selectable metrics are generated from the headers of metrics data csv file.</p>
+<p><img src="images/comevizz_zscore_select_metrics.png" alt="Z-score select metrics"></p>
+<hr>
+<h2 id="display-the-statistical-information">Display the statistical information</h2>
+<p>By selecting metrics type, you can see the statistical information of the selected metrics.</p>
+<p><img src="images/comevizz_stats.png" alt="Select metrics type"></p>
+<p><img src="images/comevizz_stats_select_metrics.png" alt="Metrics stats"></p>
+<ol>
+<li>Average / Median / Standard Deviation<ul>
+<li>See <a href="#filtering">Filtering the Population and Target</a> about filtering population and target projects</li>
+</ul>
+</li>
+<li>Cumultive distribution function</li>
+<li>Probabilistic density funciton</li>
+<li>Data table about metrics values</li>
+</ol>
+<hr>
+<h2 id="filtering">Filtering population and target </h2>
+<p>You can filter projects for displaying from <strong>Filtering Projects</strong> on the left pane.</p>
+<p><img src="images/comevizz_option_filtering.png" alt="Filtering Projects"></p>
+<p>The results of filtering will be displayed on <strong>Projects Info</strong>.</p>
+<h3 id="population">Population</h3>
+<p>You can filter projects as a population by using regular expresison for <code>url</code> string.  </p>
+<p>Example 1: In case of filtering <code>Apache</code> projects published in <code>github.com</code> as a population,</p>
+<pre><code>gihtub.com/apache/
+</code></pre><p>Example 2: In case of filtering <code>Apache</code> and <code>spring-projects</code> projects published in <code>github.com</code> as a population,</p>
+<pre><code>gihtub.com/apache/|github.com/spring-projects
+</code></pre><h3 id="target">Target</h3>
+<p>Filtering projects as a target for statistical analysis and Z-Score by using regular expression for <code>url</code> string.<br>Target projects must be included in the populations.</p>
+<h2 id=""> </h2>
+<h3 id="normalize-by-lines">Normalize by lines</h3>
+<p>By checking <strong>Normalize by lines</strong>, you can normalize the selected metrics values by dividing by <code>Lines</code> metrics value.</p>
+<p><img src="images/comevizz_option_normalize_by_lines.png" alt="Check dividing by lines"></p>
+<h3 id="transform-metrics-distributions-to-normal-distribution">Transform metrics distributions to normal distribution</h3>
+<p>By checking <strong>BoxCox Transform</strong>, you can transform metrics distributions to normal distribution by BoxCox Transformation.</p>
+<p><img src="images/comevizz_option_boxcox.png" alt="BoxCox Transform"></p>
 
-<p><img alt="Z-score select metrics set" src="images/comevizz_zscore_select_sets.png"></p><h4 id="select-metrics-by-yourself">Select metrics by yourself</h4><p>You can select specific metrics from <strong>Select Metrics</strong> on the right pane.
-Selectable metrics are generated from the headers of metrics data csv file.</p><p><img alt="Z-score select metrics" src="images/comevizz_zscore_select_metrics.png"></p><hr><h2 id="display-the-statistical-information">Display the statistical information</h2><p>By selecting metrics type, you can see the statistical information of the selected metrics.</p><p><img alt="Select metrics type" src="images/comevizz_stats.png"></p><p><img alt="Metrics stats" src="images/comevizz_stats_select_metrics.png"></p><ol><li><p>Average / Median / Standard Deviation</p><ul><li>See <a href="#filtering">Filtering the Population and Target</a> about filtering population and target projects
-</li></ul>
-</li>
-<li><p>Cumultive distribution function</p></li>
-<li>Probabilistic density funciton
-</li>
-<li>Data table about metrics values
-</li></ol>
-<hr><h2 id="filtering">Filtering population and target</h2><p>You can filter projects for displaying from <strong>Filtering Projects</strong> on the left pane.</p><p><img alt="Filtering Projects" src="images/comevizz_option_filtering.png"></p><p>The results of filtering will be displayed on <strong>Projects Info</strong>.</p><h3 id="population">Population</h3><p>You can filter projects as a population by using regular expresison for <code>url</code> string.</p><p>Example 1: In case of filtering <code>Apache</code> projects published in <code>github.com</code> as a population,</p><pre><code>gihtub.com/apache/</code></pre>
-<p>Example 2: In case of filtering <code>Apache</code> and <code>spring-projects</code> projects published in <code>github.com</code> as a population,</p><pre><code>gihtub.com/apache/|github.com/spring-projects</code></pre>
-<h3 id="target">Target</h3><p>Filtering projects as a target for statistical analysis and Z-Score by using regular expression for <code>url</code> string.  
-Target projects must be included in the populations.</p><h2 id=""></h2><h3 id="normalize-by-lines">Normalize by lines</h3><p>By checking <strong>Normalize by lines</strong>, you can normalize the selected metrics values by dividing by <code>Lines</code> metrics value.</p><p><img alt="Check dividing by lines" src="images/comevizz_option_normalize_by_lines.png"></p><h3 id="transform-metrics-distributions-to-normal-distribution">Transform metrics distributions to normal distribution</h3><p>By checking <strong>BoxCox Transform</strong>, you can transform metrics distributions to normal distribution by BoxCox Transformation.</p><p><img alt="BoxCox Transform" src="images/comevizz_option_boxcox.png"></p>
                                 
                                 </section>
                             
@@ -348,7 +398,7 @@ Target projects must be included in the populations.</p><h2 id=""></h2><h3 id="n
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Usage","level":"1.2.3","depth":2,"next":{"title":"Appendix","level":"1.2.4","depth":2,"path":"docs/comevizz/A-appendix.md","ref":"docs/comevizz/A-appendix.md","articles":[]},"previous":{"title":"Install","level":"1.2.2","depth":2,"path":"docs/comevizz/01-install.md","ref":"docs/comevizz/01-install.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","mermaid-gb3","-sharing"],"styles":{"website":"assets/css/website.css"},"pluginsConfig":{"mermaid-2":{"theme":"forest"},"katex":{},"mermaid-gb3":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"COMEVIZZ Document","language":"en","gitbook":"*"},"file":{"path":"docs/comevizz/02-usage.md","mtime":"2017-10-06T05:42:39.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2017-10-06T07:22:38.342Z"},"basePath":"../..","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"Usage","level":"1.2.3","depth":2,"next":{"title":"Appendix","level":"1.2.4","depth":2,"path":"docs/comevizz/A-appendix.md","ref":"docs/comevizz/A-appendix.md","articles":[]},"previous":{"title":"Install","level":"1.2.2","depth":2,"path":"docs/comevizz/01-install.md","ref":"docs/comevizz/01-install.md","articles":[]},"dir":"ltr"},"config":{"plugins":["katex","mermaid-gb3","-sharing"],"styles":{"website":"assets/css/website.css"},"pluginsConfig":{"mermaid-2":{"theme":"forest"},"katex":{},"mermaid-gb3":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"COMEVIZZ Document","language":"en","gitbook":"*"},"file":{"path":"docs/comevizz/02-usage.md","mtime":"2017-10-11T09:30:38.888Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-11T10:31:39.453Z"},"basePath":"../..","book":{"language":"en"}});
         });
     </script>
 </div>

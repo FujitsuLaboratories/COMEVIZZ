@@ -12,6 +12,11 @@ See [Appendix: How to use SONARQUBE Software](#sonarqube) about how to analyze b
 ## Install `sonar2csv` {#install}
 
 `sonar2csv` needs executable binary and config file named `condig.toml`.  
+You can install `sonar2csv` by the following command (Need [Go(>=1.8)](https://golang.org)).
+
+```
+go get -u github.com/FujitsuLaboratories/COMEVIZZ/sonar2csv
+```
 
 ### config.toml
 
