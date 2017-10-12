@@ -7,7 +7,7 @@ You can see the Z-Score of your source code and the distributions of souce code 
 
 ## Usage
 
-See [documentation](https://FujitsuLaboratories.github.io/comevizz).
+See [documentation](https://fujitsulaboratories.github.io/COMEVIZZ/gitbook/_book/).
 
 ### Runnning comevizz by docker-compose
 
