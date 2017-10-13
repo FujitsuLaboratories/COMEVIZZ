@@ -3,7 +3,7 @@
 ### Reading csv file of metrics data
 
 Select metrics csv file from **Browse...** button.  
-Refer [Appendix B. The Format of Metrics Data File](A-appendix.md#appendix_metrics_format) about the requirements of the csv file for metrics data.
+Refer [Appendix B. The Format of Metrics Data File](./A-appendix.md#appendix_metrics_format) about the requirements of the csv file for metrics data.
 
 When loading the metrics data file is completed, you can see the following screen.
 
@@ -14,7 +14,7 @@ When loading the metrics data file is completed, you can see the following scree
 ## Display Z-Score
 
 You can see Z-Score Radar chart from **Metrics Z-Score** tab.  
-See [Appendix C. How to calculate Z-Score](A-appendix.md#z-score) about Z-Score.
+See [Appendix C. How to calculate Z-Score](./A-appendix.md#z-score) about Z-Score.
 
 COMEVIZZ displays Z-Score Radar chart for target projects filtered by [Filtering population and target](#filtering).
 
