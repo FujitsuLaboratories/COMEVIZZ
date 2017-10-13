@@ -18,7 +18,7 @@
 ![structure](images/structure.mermaid.png)
 
 `comevizz`ではメトリクスデータのZ-score導出と統計的な分析を行うことができます.
-詳しい使用方法は[Install](docs/comevizz/01-install.md)もしくは[Usage](docs/comevizz/02-usage.md)を参照してください.
+詳しい使用方法は[Install](./01-install.md)もしくは[Usage](./02-usage.md)を参照してください.
 
 `comevizz`は[SONARQUBE&trade; Software](https://www.sonarqube.org/) により測定されたメトリクスをCSV形式でインポートします.
 SONARQUBE[^1] Softwareで測定したメトリクスデータをCSV形式で取得するには[sonar2csv](docs/sonar2csv.md)を利用してください.
