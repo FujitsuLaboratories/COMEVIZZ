@@ -17,16 +17,16 @@ yarn global add gitbook-cli
 yarn install
 ```
 
-### Runnning gitbook server
-
-```
-gitbook serve
-```
-
 ### Generating HTML Documents
 
 ```
 gitbook build
+```
+
+### Runnning gitbook server
+
+```
+gitbook serve
 ```
 
 ### Generating PDF documents
@@ -45,6 +45,12 @@ At first, you should greate Docker image.
 docker build -t comevizz-doc --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy .
 ```
 
+### Generating HTML documents
+
+```
+docker run --rm -v $PWD/gitbook:/srv/gitbook comevizz-doc
+```
+
 ### Running gitbook server
 
 ```
@@ -52,6 +58,7 @@ docker run --rm -v $PWD/gitbook:/srv/gitbook -p 4000:4000 comevizz-doc serve
 ```
 
 ### Generating PDF documents
+
 ```
 docker run --rm -v $PWD/gitbook:/srv/gitbook comevizz-doc pdf
 ```
