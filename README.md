@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/FujitsuLaboratories/COMEVIZZ.svg?branch=master)](https://travis-ci.org/FujitsuLaboratories/COMEVIZZ)
+
 # COMEVIZZ
 
 COMEVIZZ is **CO**de **ME**trics **VIZ**ualization tool with **Z**-score.
