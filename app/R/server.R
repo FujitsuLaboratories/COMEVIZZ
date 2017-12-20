@@ -209,6 +209,21 @@ server <- shiny::shinyServer(function(input, output, session) {
     legend("bottomright", legend = legends, col = cols, lty = ltys, pch = pchs)
   })
 
+  # Calculate `probability Density Function`.
+  # If the length of `data` is equal `1`, return `1` since `sd` can't be calculated correctly.
+  #' @param data original data
+  calculateProb <- function(data) {
+    if(length(data) == 1) {
+      return(1)
+    }
+    mean <- mean(data, na.rm = TRUE)
+    sd <- sd(data, na.rm = TRUE)
+    prob <-  dnorm(data, mean, sd)
+    prob <- replace(prob, which(is.infinite(prob)), 0)
+    prob <- replace(prob, which(is.na(prob)), 0)
+    return(prob)
+  }
+
   # Render `Probability Density Function` for selected metrics
   #' @importFrom shiny renderPlot
   #' @importFrom graphics boxplot
@@ -216,19 +231,11 @@ server <- shiny::shinyServer(function(input, output, session) {
     # Metrics Statistics
     all <- all_latest_data()
     all <- all[sort.list(all)]
-    ave_all <- mean(all, na.rm = TRUE)
-    sd_all <- sd(all, na.rm = TRUE)
-    prob_all <-  dnorm(all, ave_all, sd_all)
-    prob_all <- replace(prob_all, which(is.infinite(prob_all)), 0)
-    prob_all <- replace(prob_all, which(is.na(prob_all)), 0)
+    prob_all <- calculateProb(all)
 
     target <- filtered_latest_data()
     target <- target[sort.list(target)]
-    ave_target <- mean(target, na.rm = TRUE)
-    sd_target <- sd(target, na.rm = TRUE)
-    prob_target <- dnorm(target, ave_target, sd_target)
-    prob_target <- replace(prob_target, which(is.infinite(prob_target)), 0)
-    prob_target <- replace(prob_target, which(is.na(prob_target)), 0)
+    prob_target <- calculateProb(target)
 
     xmax_all <- max(all, na.rm = TRUE)
     xmin_all <- min(all, na.rm = TRUE)
@@ -240,7 +247,7 @@ server <- shiny::shinyServer(function(input, output, session) {
 
     default.par <- par(oma = c(0, 0, 0, 2))
     plot(
-      col = cols[1], pch = pchs[1], lty = ltys[1], type = "b",
+      col = cols[1], col.lab = cols[1], pch = pchs[1], lty = ltys[1], type = "b",
       all, prob_all,
       xlim = c(xmin_all, xmax_all),
       xlab = "Metrics Value", ylab = "All Probability",
@@ -255,7 +262,7 @@ server <- shiny::shinyServer(function(input, output, session) {
       axes = FALSE
     )
     axis(4)
-    mtext("Target Probability", side = 4, line = 3)
+    mtext("Target Probability", col = cols[2], side = 4, line = 3)
 
     legends <- c("All Projects", "Target Projects")
     legend("topright", legend = legends, col = cols, lty = ltys, pch = pchs)
