@@ -247,7 +247,7 @@ server <- shiny::shinyServer(function(input, output, session) {
 
     default.par <- par(oma = c(0, 0, 0, 2))
     plot(
-      col = cols[1], pch = pchs[1], lty = ltys[1], type = "b",
+      col = cols[1], col.lab = cols[1], pch = pchs[1], lty = ltys[1], type = "b",
       all, prob_all,
       xlim = c(xmin_all, xmax_all),
       xlab = "Metrics Value", ylab = "All Probability",
@@ -262,7 +262,7 @@ server <- shiny::shinyServer(function(input, output, session) {
       axes = FALSE
     )
     axis(4)
-    mtext("Target Probability", side = 4, line = 3)
+    mtext("Target Probability", col = cols[2], side = 4, line = 3)
 
     legends <- c("All Projects", "Target Projects")
     legend("topright", legend = legends, col = cols, lty = ltys, pch = pchs)
