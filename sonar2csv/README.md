@@ -26,6 +26,11 @@ Write configuration about SonarQube to `config.toml`.
     "bugs",
     "violations"
   ]
+
+// only if your SonarQube needs user authentication
+[sonarqube.auth]
+  login = "admin"
+  password = "passwd"
 ```
 
 # Usage
