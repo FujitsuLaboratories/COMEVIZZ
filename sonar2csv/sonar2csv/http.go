@@ -44,11 +44,11 @@ func NewServer(c util.SonarSetting) (*SonarServer, error) {
 }
 
 func (s *SonarServer) GetResources() (*http.Response, error) {
-	s.URL.Path = "/api/resources"
+	s.URL.Path = "/api/measures/component"
 
 	q := url.Values{}
-	q.Set("resource", s.Resource)
-	q.Set("metrics", strings.Join(s.Metrics, ","))
+	q.Set("component", s.Resource)
+	q.Set("metricKeys", strings.Join(s.Metrics, ","))
 	if len(s.Branch) != 0 {
 		q.Set("branch", s.Branch)
 	}
