@@ -15,6 +15,12 @@ type SonarSetting struct {
 	URL      string
 	Resource string
 	Metrics  []string
+	Authentication SonarAuthentication `toml:"auth"`
+}
+
+type SonarAuthentication struct {
+	Login string
+	Password string
 }
 
 type Files struct {
