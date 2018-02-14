@@ -13,6 +13,7 @@ type SonarServer struct {
 	Client   *http.Client
 	URL      *url.URL
 	Resource string
+	Branch   string
 	Metrics  []string
 	Auth struct{
 		Login string
@@ -30,6 +31,7 @@ func NewServer(c util.SonarSetting) (*SonarServer, error) {
 		Client:   &http.Client{},
 		URL:      u,
 		Resource: c.Resource,
+		Branch:   c.Branch,
 		Metrics:  c.Metrics,
 		Auth: struct{
 			Login string
@@ -47,6 +49,9 @@ func (s *SonarServer) GetResources() (*http.Response, error) {
 	q := url.Values{}
 	q.Set("resource", s.Resource)
 	q.Set("metrics", strings.Join(s.Metrics, ","))
+	if len(s.Branch) != 0 {
+		q.Set("branch", s.Branch)
+	}
 	s.URL.RawQuery = q.Encode()
 	return s.Get()
 }

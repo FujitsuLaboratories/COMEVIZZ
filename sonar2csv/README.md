@@ -21,6 +21,7 @@ Write configuration about SonarQube to `config.toml`.
 [sonarqube]
   url = "http://localhost:9000"
   resource = "063285ca8e14"
+  branch = "master"  // (optional) only if using SonarQube Branch Plugin
   metrics = [
     "lines",
     "bugs",
