@@ -1,4 +1,9 @@
+#' Server application
+#' 
 #' @importFrom shiny shinyServer
+#' @param input Server input
+#' @param output Server output
+#' @param session Session Value
 server <- shiny::shinyServer(function(input, output, session) {
   miner <- eventReactive(input$datafile, {
     input_file <- input$datafile
@@ -211,7 +216,6 @@ server <- shiny::shinyServer(function(input, output, session) {
 
   # Calculate `probability Density Function`.
   # If the length of `data` is equal `1`, return `1` since `sd` can't be calculated correctly.
-  #' @param data original data
   calculateProb <- function(data) {
     if(length(data) == 1) {
       return(1)
