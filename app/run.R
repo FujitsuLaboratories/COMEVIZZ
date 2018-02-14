@@ -1,4 +1,4 @@
-#' Define UI for application that draws plots
+#' Start comevizz script
 NULL
 
 devtools::install_local('/usr/local/src', force=TRUE)
