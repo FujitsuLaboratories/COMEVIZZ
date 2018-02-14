@@ -1,4 +1,9 @@
+#' Server application
+#' 
 #' @importFrom shiny shinyServer
+#' @param input Server input
+#' @param output Server output
+#' @param session Session Value
 server <- shiny::shinyServer(function(input, output, session) {
   miner <- eventReactive(input$datafile, {
     input_file <- input$datafile
@@ -211,7 +216,6 @@ server <- shiny::shinyServer(function(input, output, session) {
 
   # Calculate `probability Density Function`.
   # If the length of `data` is equal `1`, return `1` since `sd` can't be calculated correctly.
-  #' @param data original data
   calculateProb <- function(data) {
     if(length(data) == 1) {
       return(1)
@@ -363,12 +367,12 @@ server <- shiny::shinyServer(function(input, output, session) {
       zscore_metrics()
     )
     data <- d$calculate_zscore_plot()
-    label <- paste0(colnames(data), " (", round(data[3, ], digit = 2), ")")
+    label <- paste0(colnames(data), " (", round(data[3, ], digits = 2), ")")
     label <- d$get_metrics_names()
     radarchart(
       data,
       axistype = 4, centerzero = TRUE,
-      vlcex = 1.2, vlabel = label,
+      vlcex = 1.2, vlabels = label,
       plty = 1, pcol = rgb(0.2, 0.5, 0.5, 0.9), pfcol = rgb(0.2, 0.5, 0.5, 0.5),
       cglcol = "black", axislabcol = "black",
       caxislabels = seq(-2, 2, 1)
