@@ -35,18 +35,14 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var r []sonar2csv.SonarResponse
+	var r sonar2csv.SonarResponse
 	json.Unmarshal(b, &r)
-	if len(r) != 1 {
-		log.Fatal("duplicated or none")
-	}
-
 	appendix := map[string]string{
-		"commit.id": r[0].Version,
+		"commit.id": r.Component.ID,
 		"url":       "TargetProject1",
 		"time":      time.Now().Format("2006-01-02T12:34:56Z"),
 	}
-	val, err := r[0].MergeMetrics(*m, appendix)
+	val, err := r.MergeMetrics(*m, appendix)
 	if err != nil {
 		log.Fatal(err)
 	}
