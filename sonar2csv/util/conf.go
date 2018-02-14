@@ -14,6 +14,7 @@ type Config struct {
 type SonarSetting struct {
 	URL      string
 	Resource string
+	Branch   string
 	Metrics  []string
 }
 
