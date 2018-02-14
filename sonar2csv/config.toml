@@ -65,3 +65,7 @@
     "vulnerabilities",
     "wont_fix_issues"
   ]
+
+[sonarqube.auth]
+  login = ""
+  password = ""

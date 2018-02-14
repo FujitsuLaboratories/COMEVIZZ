@@ -14,7 +14,12 @@ type SonarServer struct {
 	URL      *url.URL
 	Resource string
 	Metrics  []string
+	Auth struct{
+		Login string
+		Password string
+	}
 }
+
 
 func NewServer(c util.SonarSetting) (*SonarServer, error) {
 	u, err := url.Parse(c.URL)
@@ -26,6 +31,13 @@ func NewServer(c util.SonarSetting) (*SonarServer, error) {
 		URL:      u,
 		Resource: c.Resource,
 		Metrics:  c.Metrics,
+		Auth: struct{
+			Login string
+			Password string
+		}{
+			Login: c.Authentication.Login,
+			Password: c.Authentication.Password,
+		},
 	}, nil
 }
 
@@ -41,10 +53,14 @@ func (s *SonarServer) GetResources() (*http.Response, error) {
 
 func (s *SonarServer) Get() (*http.Response, error) {
 	log.Print("Request to ", s.URL.String())
-	resp, err := s.Client.Do(&http.Request{
-		Method: "GET",
-		URL:    s.URL,
-	})
+
+	req, err := http.NewRequest("GET", s.URL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+	req.SetBasicAuth(s.Auth.Login, s.Auth.Password)
+
+	resp, err := s.Client.Do(req)
 	if err != nil {
 		return nil, err
 	}
