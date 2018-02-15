@@ -39,7 +39,7 @@ func main() {
 	json.Unmarshal(b, &r)
 	appendix := map[string]string{
 		"commit.id": r.Component.ID,
-		"url":       "TargetProject1",
+		"url":       r.Component.Name,
 		"time":      time.Now().Format("2006-01-02T12:34:56Z"),
 	}
 	val, err := r.MergeMetrics(*m, appendix)
