@@ -5,6 +5,9 @@
 #' @param output Server output
 #' @param session Session Value
 server <- shiny::shinyServer(function(input, output, session) {
+  # disabled download button
+  shinyjs::disable(id="save_zscore")
+
   miner <- eventReactive(input$datafile, {
     input_file <- input$datafile
     if (is.null(input_file)) {
@@ -68,7 +71,7 @@ server <- shiny::shinyServer(function(input, output, session) {
       input$boxcox, zscore_metrics()
     )
   })
-
+  
   ##############
   # Left Pane  #
   ##############
@@ -356,29 +359,47 @@ server <- shiny::shinyServer(function(input, output, session) {
 
   # Render z-score radarchart
   #' @importFrom shiny renderPlot
-  #' @importFrom fmsb radarchart
-  #' @importFrom grDevices rgb
+  #' @importFrom shinyjs disable enable
   #' @importFrom dplyr as_data_frame
   output$render_zscore <- renderPlot({
     update_data()
+    shinyjs::disable("save_zscore")
     d <- Zscore$new(
       miner()$population_data,
       miner()$target_data,
       zscore_metrics()
     )
-    data <- d$calculate_zscore_plot()
-    label <- paste0(colnames(data), " (", round(data[3, ], digits = 2), ")")
-    label <- d$get_metrics_names()
-    radarchart(
-      data,
-      axistype = 4, centerzero = TRUE,
-      vlcex = 1.2, vlabels = label,
-      plty = 1, pcol = rgb(0.2, 0.5, 0.5, 0.9), pfcol = rgb(0.2, 0.5, 0.5, 0.5),
-      cglcol = "black", axislabcol = "black",
-      caxislabels = seq(-2, 2, 1)
-    )
-  },
-  height = 600, width = 600)
+    d$plot_radarchart()
+    shinyjs::enable("save_zscore")
+  }, width=600, height=600)
+  
+  # Save z-score radarchart
+  #' @importFrom shny downloadHandler
+  output$save_zscore <- downloadHandler(
+    filename = paste0("COMEVIZZ_Z-score_", format(Sys.time(), "%Y%m%d%H%M%S"), ".png"),
+    content = function(file) {
+      d <- Zscore$new(
+        miner()$population_data,
+        miner()$target_data,
+        zscore_metrics()
+      )
+      title <- paste(
+        sprintf("Repository Filter : `%s`", input$repository_filter),
+        sprintf("Target Filter : `%s`", input$target_filter),
+        paste("Options :",
+          ifelse(input$calculate_density, " Normalized", ""),
+          ifelse(input$boxcox, " BoxCox", "")
+        ),
+        sep = "\n"
+      )
+
+      # Output PNG image
+      png(file, width = 720, height = 720)
+      print(d$plot_radarchart(title))
+      title(main="COMEVIZZ Z-score", sub=title, cex.sub=1.5, font.sub=4, adj=1)
+      dev.off()
+    }
+  )
 
   output$stats_invalid_description <- renderUI({
     helpText(

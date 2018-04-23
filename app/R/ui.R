@@ -2,10 +2,12 @@
 #' 
 #' @importFrom shiny shinyUI column h3 fluidPage fluidRow sidebarLayout 
 #'  mainPanel sidebarPanel titlePanel plotOutput textInput uiOutput tabPanel tabsetPanel
+#' @importFrom shinyjs useShinyjs
 #' @name infrastructure
 NULL
 
 ui <- shinyUI(fluidPage(
+  shinyjs::useShinyjs(),
   # Application title
   titlePanel(messages$tr("title")),
   # Sidebar with a slider input for number of bins
@@ -27,6 +29,8 @@ ui <- shinyUI(fluidPage(
           fluidRow(
             column(
               8,
+              downloadButton("save_zscore", "Download Radarchart"),
+              hr(),
               plotOutput("render_zscore")
             ),
             column(
