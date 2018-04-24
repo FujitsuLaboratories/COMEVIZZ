@@ -1,2 +1,2 @@
 library(devtools)
-devtools::install_dev_deps('/usr/local/src')
+devtools::install_deps('/usr/local/src')

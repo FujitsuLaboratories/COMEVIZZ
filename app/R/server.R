@@ -5,9 +5,6 @@
 #' @param output Server output
 #' @param session Session Value
 server <- shiny::shinyServer(function(input, output, session) {
-  # disabled download button
-  shinyjs::disable(id="save_zscore")
-
   miner <- eventReactive(input$datafile, {
     input_file <- input$datafile
     if (is.null(input_file)) {
@@ -70,6 +67,29 @@ server <- shiny::shinyServer(function(input, output, session) {
       input$calculate_density,
       input$boxcox, zscore_metrics()
     )
+  })
+
+  # When clicking "show_save_modal", open modal for saving plot image
+  observeEvent(input$show_save_modal, {
+    if(length(input$datafile) != 0){
+      showModal(
+        modalDialog(
+          fluidPage(
+            renderPlot({getZscoreRadarchart(input$save_zscore_check_desc)}, width=480, height=480),
+            hr(),
+            checkboxInput("save_zscore_check_desc", "Embed descriptions of filtering option in image", value=FALSE, width="100%"),
+            textInput("filename", "Download FileName", placeholder ="filename.png", value=paste0("COMEVIZZ_Z-score_", format(Sys.time(), "%Y%m%d%H%M%S"), ".png"))
+          ),
+          footer = tagList(
+            modalButton("Cancel"),
+            downloadButton("save_zscore", "Download", class = "btn btn-primary")
+          ),
+          easyClose = TRUE
+        )
+      )
+    } else {
+      showModal(modalDialog(title = "Error", "Please input data file and render radarchart", easyClose = TRUE, footer = modalButton("OK")))
+    }
   })
   
   ##############
@@ -359,48 +379,45 @@ server <- shiny::shinyServer(function(input, output, session) {
 
   # Render z-score radarchart
   #' @importFrom shiny renderPlot
-  #' @importFrom shinyjs disable enable
   #' @importFrom dplyr as_data_frame
   output$render_zscore <- renderPlot({
     update_data()
-    shinyjs::disable("save_zscore")
+    getZscoreRadarchart()
+  }, width = 600, height = 600)
+  
+  # Save z-score radarchart
+  #' @importFrom shny downloadHandler
+  output$save_zscore <- downloadHandler(
+    filename = input$filename,
+    content = function(file) {
+      # Output PNG image
+      png(file, width = 720, height = 720)
+      par(bg=NA)
+      getZscoreRadarchart(input$save_zscore_check_desc)
+      dev.off()
+    }
+  )
+
+  getZscoreRadarchart <- function(embedFilters=FALSE) {
     d <- Zscore$new(
       miner()$population_data,
       miner()$target_data,
       zscore_metrics()
     )
     d$plot_radarchart()
-    shinyjs::enable("save_zscore")
-  }, width=600, height=600)
-  
-  # Save z-score radarchart
-  #' @importFrom shny downloadHandler
-  output$save_zscore <- downloadHandler(
-    filename = paste0("COMEVIZZ_Z-score_", format(Sys.time(), "%Y%m%d%H%M%S"), ".png"),
-    content = function(file) {
-      d <- Zscore$new(
-        miner()$population_data,
-        miner()$target_data,
-        zscore_metrics()
-      )
+    if(embedFilters) {
       title <- paste(
         sprintf("Repository Filter : `%s`", input$repository_filter),
         sprintf("Target Filter : `%s`", input$target_filter),
         paste("Options :",
-          ifelse(input$calculate_density, " Normalized", ""),
-          ifelse(input$boxcox, " BoxCox", "")
+              ifelse(input$calculate_density, " Normalized", ""),
+              ifelse(input$boxcox, " BoxCox", "")
         ),
         sep = "\n"
       )
-
-      # Output PNG image
-      png(file, width = 720, height = 720)
-      print(d$plot_radarchart(title))
       title(main="COMEVIZZ Z-score", sub=title, cex.sub=1.5, font.sub=4, adj=1)
-      dev.off()
     }
-  )
-
+  }
   output$stats_invalid_description <- renderUI({
     helpText(
       messages$tr("tab.metrics.main.metrics.unselectable_metrics"),

@@ -35,7 +35,7 @@ Zscore <- setRefClass(
       }
       return(minmax[setdiff(colnames(minmax), "tmp")])
     },
-    plot_radarchart = function(title = '') {
+    plot_radarchart = function() {
       data <- calculate_zscore_plot()
       label <- paste0(colnames(data), " (", round(data[3, ], digits = 2), ")")
       label <- get_metrics_names()
