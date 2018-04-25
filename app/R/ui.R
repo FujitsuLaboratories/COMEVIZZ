@@ -27,7 +27,11 @@ ui <- shinyUI(fluidPage(
           fluidRow(
             column(
               8,
-              actionButton("show_save_modal", "Save Radarchart as .png", icon = icon("image")),
+              actionButton(
+                "show_save_modal",
+                "Save Radarchart as .png",
+                icon = icon("image")
+              ),
               hr(),
               plotOutput("render_zscore")
             ),
