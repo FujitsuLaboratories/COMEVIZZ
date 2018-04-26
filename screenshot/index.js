@@ -22,7 +22,7 @@ async function shot() {
     const page = await browser.newPage();
     await page.setViewport({width: 1280, height: 720})
     // await page.authenticate(config.proxy.auth);
-    await page.goto('http://localhost:3838', {waitUntil: "networkidle"});
+    await page.goto('http://localhost:3838', {waitUntil: "networkidle0"});
 
     // # TOP
     console.log("Shot toppage")
@@ -41,14 +41,8 @@ async function shot() {
 
     // # Z-Score Tab
     // ## Display Z-Score
-    await page.click('a[data-value="Z-Score"]')
-    await page.focus('input[type=text]')
-    await page.type('Violations')
-    await page.press('Enter')
-    await page.focus("#repository_filter")
-    await page.type("apache/")
-    await page.focus("#target_filter")
-    await page.type("commons")
+    await page.type("#repository_filter", "apache/")
+    await page.type("#target_filter", "commons")
     await page.waitFor(5000)
     console.log("Shot filtered z-score")
     await page.screenshot({
@@ -70,6 +64,25 @@ async function shot() {
         path: path.join(outputDir, 'comevizz_zscore_select_metrics.png')
     });
 
+    // ## Show modal for saving radarchar as image
+    await page.click("#show_save_modal[type=button]")
+    await page.waitFor(1000)
+    console.log("Shot modal for saving radarchart")
+    await page.screenshot({
+        path: path.join(outputDir, 'comevizz_zscore_save_modal.png')
+    });
+    // ## Check adding filter desc on radarchart
+    await page.click("#save_zscore_check_desc[type=checkbox]")
+    await page.waitFor(500)
+    console.log("Shot checking zscore desc on radarchart")
+    await page.screenshot({
+        path: path.join(outputDir, 'comevizz_zscore_save_modal_check_desk.png')
+    });
+
+    // ## Close modal
+    await page.keyboard.press('Escape')
+    await page.waitFor(500)
+
     // # Metrics Stats Tab
     // ## Display metrics stats
     await page.click('a[data-value="Metrics Stats"]')
@@ -86,9 +99,13 @@ async function shot() {
         path: path.join(outputDir, 'comevizz_stats_select_metrics.png')
     });
     // ## Complete to display selected metrics
-    await page.focus('input[placeholder=choose]')
-    await page.type('bugs')
-    await page.press('Enter')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('ArrowDown')
+    await page.keyboard.press('Enter')
+    // await page.focus('input[placeholder=choose]')
+    //await page.type('bugs')
+    //await page.press('Enter')
+    // await page.select('#select_metrics', 'bugs')
     await page.waitFor(3000)
     console.log("Shot selected stats")
     await page.screenshot({
