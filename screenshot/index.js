@@ -25,6 +25,7 @@ async function shot() {
     await page.goto('http://localhost:3838', {waitUntil: "networkidle"});
 
     // # TOP
+    console.log("Shot toppage")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_toppage.png')
     });
@@ -33,6 +34,7 @@ async function shot() {
     const datasource = await page.$('input[type=file]')
     await datasource.uploadFile('./data/sample_data.csv')
     await page.waitFor(5000)
+    console.log("Shot finish reading data file")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_read_data.png')
     });
@@ -48,17 +50,22 @@ async function shot() {
     await page.focus("#target_filter")
     await page.type("commons")
     await page.waitFor(5000)
+    console.log("Shot filtered z-score")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_zscore.png')
     });
 
     // ## Select Metrics Stats
     await page.click("#zscore_metrics_set + .selectize-control")
+    await page.waitFor(500)
+    console.log("Shot selecting metrics sets")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_zscore_select_sets.png')
     });
     // ## Select Metrics
     await page.click("#select_zscore_metrics input[type=text]")
+    await page.waitFor(500)
+    console.log("Shot selecting metrics")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_zscore_select_metrics.png')
     });
@@ -66,11 +73,15 @@ async function shot() {
     // # Metrics Stats Tab
     // ## Display metrics stats
     await page.click('a[data-value="Metrics Stats"]')
+    await page.waitFor(500)
+    console.log("Shot stats tab")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_stats.png')
     });
     // ## Select Metrics
     await page.click("#select_metrics + .selectize-control")
+    await page.waitFor(500)
+    console.log("Shot selecting stats")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_stats_select_metrics.png')
     });
@@ -79,6 +90,7 @@ async function shot() {
     await page.type('bugs')
     await page.press('Enter')
     await page.waitFor(3000)
+    console.log("Shot selected stats")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_stats_selected.png'),
         clip: {
@@ -92,6 +104,7 @@ async function shot() {
     // # Filtering and Converting
     // ## Filtering repositories
     await page.waitFor(3000)
+    console.log("Shot filtering stats")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_option_filtering.png'),
         clip: {
@@ -105,6 +118,7 @@ async function shot() {
     // ## Devided metrics value by lines
     await page.click('#calculate_density')
     await page.waitFor(1000)
+    console.log("Shot normalize metrics")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_option_normalize_by_lines.png'),
         clip: {
@@ -117,6 +131,7 @@ async function shot() {
     // ## BoxCox Transformation
     await page.click('#boxcox')
     await page.waitFor(1000)
+    console.log("Shot boxcox transform")
     await page.screenshot({
         path: path.join(outputDir, 'comevizz_option_boxcox.png'),
         clip: {
