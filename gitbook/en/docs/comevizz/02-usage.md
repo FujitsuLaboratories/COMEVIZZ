@@ -47,6 +47,19 @@ Selectable metrics are generated from the headers of metrics data csv file.
 
 ![Z-score select metrics](images/comevizz_zscore_select_metrics.png)
 
+
+### Download Z-Score radarchart as image
+
+If clicking the button `Save Radarchart as .png` at the top of radarchart, You can open the dialog for saving Z-Score radarchart as image.
+
+![Save Z-score radarchart dialog](images/comevizz_zscore_save_modal.png)
+
+Clicking `Download` button, the displayed radarchart is downloaded as PNG image.  
+You can change download file name at `Download FileName`.  
+If you check `Embed descriptions of filtering option in image`, descriptions of you specified filtering option is added on image.  
+
+![Save Z-score radarchart with more description](images/comevizz_zscore_save_modal_check_desc.png)
+
 * * *
 
 ## Display the statistical information

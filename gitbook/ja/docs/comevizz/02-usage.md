@@ -50,6 +50,17 @@ Z-Score表示するメトリクスを選択することができます.
 
 ![Z-score select metrics](images/comevizz_zscore_select_metrics.png)
 
+### Z-Scoreレーダーチャートを画像としてダウンロードする
+
+レーダーチャートの上部にある`Save Radarchart as .png`ボタンをクリックすると,Z-ScoreレーダーチャートをPNGファイルとしてダウンロードするためのダイアログが開きます.
+![Save Z-score radarchart dialog](images/comevizz_zscore_save_modal.png)
+
+ダイアログの右下の`Download`ボタンを押すことで、表示されているレーダーチャート画像をダウンロードします.  
+ダウンロード時のファイル名は`Download FileName`より変更できます.  
+また,`Embed descriptions of filtering option in image`をチェックすることで,レーダーチャート表示時に指定したFilteringの情報を画像に追加することができます.  
+
+![Save Z-score radarchart with more description](images/comevizz_zscore_save_modal_check_desc.png)
+
 * * *
 
 ## 統計情報表示
