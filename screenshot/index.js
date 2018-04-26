@@ -20,7 +20,7 @@ async function shot() {
         // args: ['--proxy-server=' + config.proxy.server, '--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage();
-    await page.setViewport({width: 1280, height: 720})
+    await page.setViewport({width: 1280, height: 1080})
     // await page.authenticate(config.proxy.auth);
     await page.goto('http://localhost:3838', {waitUntil: "networkidle0"});
 
