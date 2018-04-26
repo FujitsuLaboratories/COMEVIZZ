@@ -69,6 +69,55 @@ server <- shiny::shinyServer(function(input, output, session) {
     )
   })
 
+  # When clicking "show_save_modal", open modal for saving plot image
+  observeEvent(input$show_save_modal, {
+    if (length(input$datafile) != 0){
+      showModal(
+        modalDialog(
+          fluidPage(
+            renderPlot({
+                get_zscore_radarchart(input$save_zscore_check_desc)
+              },
+              width = 480,
+              height = 480
+            ),
+            hr(),
+            checkboxInput(
+              "save_zscore_check_desc",
+              "Embed descriptions of filtering option in image",
+              value = FALSE,
+              width = "100%"
+            ),
+            textInput(
+              "filename",
+              "Download FileName",
+              placeholder = "filename.png",
+              value = paste0(
+                "COMEVIZZ_Z-score_",
+                format(Sys.time(), "%Y%m%d%H%M%S"),
+                ".png"
+              )
+            )
+          ),
+          footer = tagList(
+            modalButton("Cancel"),
+            downloadButton("save_zscore", "Download", class = "btn btn-primary")
+          ),
+          easyClose = TRUE
+        )
+      )
+    } else {
+      showModal(
+        modalDialog(
+          title = "Error",
+          "Please input data file and render radarchart",
+          easyClose = TRUE,
+          footer = modalButton("OK")
+        )
+      )
+    }
+  })
+
   ##############
   # Left Pane  #
   ##############
@@ -215,9 +264,10 @@ server <- shiny::shinyServer(function(input, output, session) {
   })
 
   # Calculate `probability Density Function`.
-  # If the length of `data` is equal `1`, return `1` since `sd` can't be calculated correctly.
-  calculateProb <- function(data) {
-    if(length(data) == 1) {
+  # If the length of `data` is equal `1`, return `1` since `sd` can't be
+  # calculated correctly.
+  calculate_prob <- function(data) {
+    if (length(data) == 1) {
       return(1)
     }
     mean <- mean(data, na.rm = TRUE)
@@ -235,11 +285,11 @@ server <- shiny::shinyServer(function(input, output, session) {
     # Metrics Statistics
     all <- all_latest_data()
     all <- all[sort.list(all)]
-    prob_all <- calculateProb(all)
+    prob_all <- calculate_prob(all)
 
     target <- filtered_latest_data()
     target <- target[sort.list(target)]
-    prob_target <- calculateProb(target)
+    prob_target <- calculate_prob(target)
 
     xmax_all <- max(all, na.rm = TRUE)
     xmin_all <- min(all, na.rm = TRUE)
@@ -251,7 +301,8 @@ server <- shiny::shinyServer(function(input, output, session) {
 
     default.par <- par(oma = c(0, 0, 0, 2))
     plot(
-      col = cols[1], col.lab = cols[1], pch = pchs[1], lty = ltys[1], type = "b",
+      col = cols[1], col.lab = cols[1],
+      pch = pchs[1], lty = ltys[1], type = "b",
       all, prob_all,
       xlim = c(xmin_all, xmax_all),
       xlab = "Metrics Value", ylab = "All Probability",
@@ -356,30 +407,47 @@ server <- shiny::shinyServer(function(input, output, session) {
 
   # Render z-score radarchart
   #' @importFrom shiny renderPlot
-  #' @importFrom fmsb radarchart
-  #' @importFrom grDevices rgb
   #' @importFrom dplyr as_data_frame
   output$render_zscore <- renderPlot({
     update_data()
+    get_zscore_radarchart()
+  },
+  width = 600, height = 600)
+
+  # Save z-score radarchart
+  #' @importFrom shny downloadHandler
+  output$save_zscore <- downloadHandler(
+    filename = input$filename,
+    content = function(file) {
+      # Output PNG image
+      png(file, width = 720, height = 720)
+      par(bg = NA)
+      get_zscore_radarchart(input$save_zscore_check_desc)
+      dev.off()
+    }
+  )
+
+  get_zscore_radarchart <- function(embed_filters=FALSE) {
     d <- Zscore$new(
       miner()$population_data,
       miner()$target_data,
       zscore_metrics()
     )
-    data <- d$calculate_zscore_plot()
-    label <- paste0(colnames(data), " (", round(data[3, ], digits = 2), ")")
-    label <- d$get_metrics_names()
-    radarchart(
-      data,
-      axistype = 4, centerzero = TRUE,
-      vlcex = 1.2, vlabels = label,
-      plty = 1, pcol = rgb(0.2, 0.5, 0.5, 0.9), pfcol = rgb(0.2, 0.5, 0.5, 0.5),
-      cglcol = "black", axislabcol = "black",
-      caxislabels = seq(-2, 2, 1)
-    )
-  },
-  height = 600, width = 600)
-
+    d$plot_radarchart()
+    if (embed_filters) {
+      title <- paste(
+        sprintf("Repository Filter : `%s`", input$repository_filter),
+        sprintf("Target Filter : `%s`", input$target_filter),
+        paste("Options :",
+              ifelse(input$calculate_density, " Normalized", ""),
+              ifelse(input$boxcox, " BoxCox", "")
+        ),
+        sep = "\n"
+      )
+      title(main = "COMEVIZZ Z-score", sub = title,
+            cex.sub = 1.5, font.sub = 4, adj = 1)
+    }
+  }
   output$stats_invalid_description <- renderUI({
     helpText(
       messages$tr("tab.metrics.main.metrics.unselectable_metrics"),

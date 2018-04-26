@@ -35,6 +35,22 @@ Zscore <- setRefClass(
       }
       return(minmax[setdiff(colnames(minmax), "tmp")])
     },
+    #' Calculate zscores and make radarchart of zscore
+    #' @return radarchart Return radarchart objet of zscore
+    plot_radarchart = function() {
+      data <- calculate_zscore_plot()
+      label <- paste0(colnames(data), " (", round(data[3, ], digits = 2), ")")
+      label <- get_metrics_names()
+      radarchart(
+        data,
+        axistype = 4, centerzero = TRUE,
+        vlcex = 1.2, vlabels = label,
+        plty = 1, pcol = rgb(0.2, 0.5, 0.5, 0.9),
+        pfcol = rgb(0.2, 0.5, 0.5, 0.5),
+        cglcol = "black", axislabcol = "black",
+        caxislabels = seq(-2, 2, 1)
+      )
+    },
     #' Calculate z-score displayed as RadarChart
     #' @return z-score
     calculate_zscore_plot = function(){
